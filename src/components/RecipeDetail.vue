@@ -1,17 +1,38 @@
 <template>
   <div class="detail">
-    <div class="recipe">
-      <h2>Название рецепта</h2>
-      <a href="#">Показать</a>
-      <p>Описание рецепта</p>
-      <button class="btn remove">Удалить</button>
+    <div class="recipe" v-if="recipe">
+      <h2>{{ recipe.title }}</h2>
+      <a href="#" @click.prevent="toggle">Показать</a>
+      <p v-if="visible">{{ recipe.description }}</p>
+      <button class="btn remove" @click="$emit('remove', recipe.id)">Удалить</button>
     </div>
   </div>
 </template>
 
 <script>
+  import toggleMixin from "@/toggleMixin";
 export default {
-
+  props:{
+    recipe:{
+      type: Object
+    }
+  },
+  mixins:[toggleMixin],
+  // data(){
+  //   return{
+  //     visible: false
+  //   }
+  // },
+  // methods:{
+  //   toggle() {
+  //     this.visible = !this.visible
+  //   }
+  // },
+  watch:{
+   recipe() {
+     this.visible = false
+   }
+  }
 }
 </script>
 

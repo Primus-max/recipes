@@ -1,24 +1,56 @@
 <template>
-  <form class="form">
+  <form class="form" @submit.prevent="submitForm">
     <h1>Добавить рецепт</h1>
-    <div>
+    <div v-if="visible">
       <div class="input">
-        <input type="text" placeholder="Название рецепта">
+        <input type="text" placeholder="Название рецепта" v-model="recipeTittle">
       </div>
       <div class="input">
-        <input type="text" placeholder="Описание рецепта">
+        <input type="text" placeholder="Описание рецепта" v-model="recipeDescription">
       </div>
     </div>
 
     <div class="buttons">
-      <button class="btn" type="submit">Создать</button>
-      <button class="btn secondary" type="button">Убрать форму</button>
+      <button class="btn" type="submit" :disabled="!valid">Создать</button>
+      <button class="btn secondary" type="button" @click="toggle">
+     {{ visible ? 'Убрать':'Показать' }} форму
+      </button>
     </div>
   </form>
 </template>
 
 <script>
+  import toggleMixin from "@/toggleMixin";
+
+
 export default {
+  mixins:[toggleMixin],
+  data(){
+   return {
+     recipeTittle:'',
+     recipeDescription: '',
+     //visible: true,
+   }
+  },
+  methods:{
+    submitForm(){
+      const newRecipe = {
+        title: this.recipeTittle.trim(),
+        description: this.recipeDescription.trim(),
+        id: Date.now().toString()
+      }
+      this.$emit('addRecipe', newRecipe)
+      this.recipeTittle = this.recipeDescription = ''
+    },
+    // toggle(){
+    //   this.visible = !this.visible
+    // },
+  },
+  computed:{
+    valid(){
+      return this.recipeTittle.trim() && this.recipeDescription.trim()
+    }
+  },
 
 }
 </script>
