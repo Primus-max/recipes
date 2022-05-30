@@ -10,29 +10,25 @@
 </template>
 
 <script>
-  import toggleMixin from "@/toggleMixin";
+import {watch} from "vue"
+import {useForm} from "@/use/form";
+
 export default {
   props:{
     recipe:{
       type: Object
     }
   },
-  mixins:[toggleMixin],
-  // data(){
-  //   return{
-  //     visible: false
-  //   }
-  // },
-  // methods:{
-  //   toggle() {
-  //     this.visible = !this.visible
-  //   }
-  // },
-  watch:{
-   recipe() {
-     this.visible = false
-   }
-  }
+
+  setup(props){
+    const {visible, toggle} = useForm()
+
+    watch(()=> props.recipe, ()=>{
+      visible.value = false
+    })
+
+    return{visible, toggle}
+  },
 }
 </script>
 

@@ -5,7 +5,6 @@ export function useToggle() {
 
     function toggle() {
         visible.value = !visible.value
-        console.log(visible)
     }
 
     return {

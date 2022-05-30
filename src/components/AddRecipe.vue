@@ -20,103 +20,21 @@
 </template>
 
 <script >
-    import {ref, reactive, computed} from 'vue'
     import {useToggle} from "@/use/toggle.js"
-
-
-    // let visible = ref(false)
-    //
-    // function toggle() {
-    //     visible.value = !visible.value
-    //     console.log(visible)
-    // }
-
-    // useToggle()
-    // const form = reactive({
-    //     title: '',
-    //     description: '',
-    // })
-    //
-    // const submitForm = () => {
-    //     const newRecipe = {
-    //         title: form.title.trim(),
-    //         description: form.description.trim(),
-    //         id: Date.now().toString()
-    //     }
-    //     this.$emit('addRecipe', newRecipe)
-    //     form.title = form.description = ''
-    // }
-    //
-    // const valid = computed(() => {
-    //     return form.title.trim() && form.description.trim()
-    // })
+    import {useForm} from "@/use/form";
 
 
     export default {
-
-
-        setup() {
-            // let visible = ref(false)
-            //
-            // const toggle = () => {
-            //     visible.value = !visible.value
-            // }
-
-
-            const form = reactive({
-                title: '',
-                description: '',
-            })
-
-            const submitForm = () => {
-                const newRecipe = {
-                    title: form.title.trim(),
-                    description: form.description.trim(),
-                    id: Date.now().toString()
-                }
-                this.$emit('addRecipe', newRecipe)
-                form.title = form.description = ''
-            }
-
-            const valid = computed(() => {
-                return form.title.trim() && form.description.trim()
-            })
-
-            return {
-                valid,
-                submitForm,
-                form,
-                ...useToggle()
-
-            }
+        props:{
+            onAdd: Function,
         },
 
-        // data() {
-        //     return {
-        //         recipeTittle: '',
-        //         recipeDescription: '',
-        //         //visible: true,
-        //     }
-        // },
-        // methods: {
-        //     submitForm() {
-        //         const newRecipe = {
-        //             title: this.recipeTittle.trim(),
-        //             description: this.recipeDescription.trim(),
-        //             id: Date.now().toString()
-        //         }
-        //         this.$emit('addRecipe', newRecipe)
-        //         this.recipeTittle = this.recipeDescription = ''
-        //     },
-        //     // toggle(){
-        //     //   this.visible = !this.visible
-        //     // },
-        // },
-        // computed: {
-        //     valid() {
-        //         return this.recipeTittle.trim() && this.recipeDescription.trim()
-        //     }
-        // },
+        setup(props, {emit}) {
+            return {
+                ...useForm(props, emit),
+                ...useToggle()
+            }
+        },
 
     }
 </script>

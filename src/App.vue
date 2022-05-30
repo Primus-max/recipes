@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <AddRecipe @add-recipe="addRecipe"/>
+    <AddRecipe :addRecipe="addRecipe"/>
 
     <div class="columns">
       <RecipeList :recipes="recipes"
@@ -33,6 +33,7 @@
     methods:{
       addRecipe(recipe){
         this.recipes.push(recipe)
+        console.log('run')
       },
       selectRecipe(id){
         this.current =  this.recipes.find(r => r.id === id)
@@ -40,7 +41,10 @@
       removeRecipe(id){
         this.current = null
         this.recipes = this.recipes.filter(r => r.id !== id)
-      }
+      },
+      // onAdd(recipe){
+      //   this.recipes.push(recipe)
+      // }
     },
 
   }
