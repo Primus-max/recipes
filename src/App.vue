@@ -42,9 +42,6 @@
         this.current = null
         this.recipes = this.recipes.filter(r => r.id !== id)
       },
-      // onAdd(recipe){
-      //   this.recipes.push(recipe)
-      // }
     },
 
   }

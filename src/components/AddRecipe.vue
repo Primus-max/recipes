@@ -19,20 +19,27 @@
     </form>
 </template>
 
-<script >
+<script>
     import {useToggle} from "@/use/toggle.js"
     import {useForm} from "@/use/form";
 
 
     export default {
-        props:{
-            onAdd: Function,
+        props: {
+            addRecipe: Function,
         },
 
-        setup(props, {emit}) {
+        setup(props, context) {
+
+            // function addRecipe(event) {
+            //     context.emit()
+            // }
+
+
             return {
-                ...useForm(props, emit),
-                ...useToggle()
+                ...useForm(props, context),
+                ...useToggle(),
+
             }
         },
 

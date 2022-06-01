@@ -11,19 +11,20 @@
 
 <script>
 import {watch} from "vue"
-import {useForm} from "@/use/form";
+import {useToggle} from "@/use/toggle";
 
 export default {
   props:{
     recipe:{
       type: Object
-    }
+    },
+    current: Boolean
   },
 
   setup(props){
-    const {visible, toggle} = useForm()
+    const {visible, toggle} = useToggle()
 
-    watch(()=> props.recipe, ()=>{
+    watch(()=> props.current, ()=>{
       visible.value = false
     })
 

@@ -1,6 +1,6 @@
 import {computed, reactive} from "vue";
 
-export function useForm(props, emit) {
+export function useForm(props, context) {
     const form = reactive({
         title: '',
         description: '',
@@ -12,9 +12,7 @@ export function useForm(props, emit) {
             description: form.description.trim(),
             id: Date.now().toString()
         }
-        emit('addRecipe', newRecipe)
-        //props.onAdd(newRecipe)
-        //this.$emit('addRecipe', newRecipe)
+        props.addRecipe(newRecipe)
         form.title = form.description = ''
     }
 
